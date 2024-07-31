@@ -329,7 +329,10 @@ such as clojure.core/+"
      (let [^clojure.lang.Var v (if (var? v) v (resolve v))
            ns (.ns v)
            s  (.sym v)]
-       (if (and (ifn? @v) (-> v meta :macro not) (-> v meta ::traced not))
+       (if (and (ifn? @v)
+                (-> v meta :macro not)
+                (-> v meta :no-trace not)
+                (-> v meta ::traced not))
          (let [f @v
                vname (symbol (str ns "/" s))]
            (doto v

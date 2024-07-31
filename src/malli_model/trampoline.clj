@@ -30,6 +30,6 @@
                        (check (seq x) k))
                      (k false))))
       (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
-(defn compile [s o] (let [f (compile' s o)] (fn [x] (trampoline f x identity))))
+(defn ^:no-trace compile [s o] (let [f (compile' s o)] (fn [x] (trampoline f x identity))))
 (defn validate [s o v] ((compile s o) v))
 (trace-ns)
