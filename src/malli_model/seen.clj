@@ -1,6 +1,11 @@
 (ns malli-model.seen
   (:refer-clojure :exclude [compile])
   (:require [malli-model.trace :refer [trace-ns]]))
+;; R ::= {K S}           ;; registry
+;; seen ::= {K fn?}      ;; validator for refs being currently compiled
+;; S ::= [:= v]          ;; singleton schema
+;;    |  [:seqable S]    ;; seqable schema
+;;    |  K               ;; reference schema
 (defn lookup [k R] (or (R k) (throw (ex-info (str "not in scope: " k) {}))))
 (defn found [k seen] (or (seen k) (throw (ex-info (str "not in scope: " k) {}))))
 (defn run [s f] (f))

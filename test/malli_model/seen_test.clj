@@ -1,7 +1,6 @@
 (ns malli-model.seen-test
   (:require [clojure.test :refer :all]
-            [malli-model.seen :as m]
-            [malli-model.trace :refer [trace-ns]]))
+            [malli-model.seen :as m]))
 
 (deftest validator-test
   (is (true? (m/validate [:= 1] {} 1)))
