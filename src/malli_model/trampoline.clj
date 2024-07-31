@@ -22,11 +22,13 @@
                                (run s
                                     #(if (empty? x)
                                        (k true)
-                                       (f (first x)
-                                          (fn [res]
-                                            (if res
-                                              (check (rest x) k)
-                                              false))))))]
+                                       (fn []
+                                         (f (first x)
+                                            (fn [res]
+                                              (fn []
+                                                (if res
+                                                  (check (rest x) k)
+                                                  false))))))))]
                        (check (seq x) k))
                      (k false))))
       (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
