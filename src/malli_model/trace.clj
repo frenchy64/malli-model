@@ -402,10 +402,11 @@ such as clojure.core/+"
   "Trace all fns in the given name space. The given name space can be quoted, unquoted or stored in a var.
    We must try to resolve the expression passed to us partially to find out if it needs to be quoted or not
    when passed to trace-ns*"
-  [n]
-  (let [quote? (not (or (resolves-as-var? n) (and (coll? n) (= (first n) (quote quote)))))
-        n (if quote? (list 'quote n) n)]
-    `(trace-ns* ~n)))
+  ([] `(trace-ns ~(ns-name *ns*)))
+  ([n]
+   (let [quote? (not (or (resolves-as-var? n) (and (coll? n) (= (first n) (quote quote)))))
+         n (if quote? (list 'quote n) n)]
+     `(trace-ns* ~n))))
 
 (defn ^{:skip-wiki true} untrace-ns*
   "Reverses the effect of trace-var / trace-vars / trace-ns for the

@@ -19,4 +19,5 @@
   (is (m/validate nil :bar {:R {:bar [:seqable :bar]}}))
   (is (m/validate [[[[[[nil]]]]]] :bar {:R {:bar [:seqable :bar]}}))
   (is (m/validate [[[[[[1]]]]]] :bar {:R {:bar [:seqable :bar]}}))
+  (is (m/validator :nest {:R {:nest [:seqable :nest]}}))
   )
