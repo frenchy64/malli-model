@@ -20,16 +20,28 @@
                                (apply f (map (fn [x] (if (fn? x) '<fn> x)) xs)))))
   (trace-ns malli-model.core)
   (m/validator :foo {:foo [:or :int [:seqable :foo]]})
-  (m/validator :foo {:foo [:or :int [:seqable [:ref :foo]]]})
-  (m/validate 1 :foo {:foo [:or :int [:seqable [:ref :foo]]]})
-  (m/validate [[[[1]]]] :foo {:foo [:or :int [:seqable [:ref :foo]]]})
+
+  ; ref pauses
+  (def chk-foo (m/validator :foo {:foo [:or :int [:seqable [:ref :foo]]]}))
+
+  (chk-foo 1)
+  ;; must must continue at runtime
+  (chk-foo [1])
+  (chk-foo [[1]])
+  (chk-foo [[[1]]])
+  (chk-foo [[[[1]]]])
+
   (m/validator [:registry {:foo [:or :int [:seqable [:ref :foo]]]}
                 :foo]
                {})
+  ;; dynamic scope!
   (m/validator [:registry {:sequence [:seqable :of]
                            :of :int}
                 [:registry {:of :boolean}
                  :sequence]]
                {})
+  ;; need to make progress 
   (m/validator :foo {:foo :foo})
+  ((m/validator :foo {:foo [:ref :foo]})
+   1)
   )

@@ -93,7 +93,7 @@ affecting the result."
 symbol name of the function."
   [name f args]
   (let [id (gensym "t")]
-    (tracer id (str (trace-indent) (pr-str (cons (-> name clojure.core/name symbol) args))))
+    (tracer id (str (trace-indent) (pr-str (cons (-> name clojure.core/name symbol) (take 1 args)))))
     (let [value (binding [*trace-depth* (inc *trace-depth*)]
                   (apply f args))]
       (tracer id (str (trace-indent) "=> "

@@ -1,6 +1,7 @@
 (ns malli-model.core)
 
 (defn lookup [k R]
+  {:post [(some? %)]}
   (R k))
 
 (declare validator)
@@ -36,7 +37,7 @@
            (every? v x)))))
 
 ; [:registry R S]
-(defmethod -validator :registry [[_seqable_ R' s] R]
+(defmethod -validator :registry [[_registry_ R' s] R]
   (validator s (merge R R')))
 
 ; [:ref K]
