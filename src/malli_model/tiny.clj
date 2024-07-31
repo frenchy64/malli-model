@@ -1,11 +1,13 @@
-(ns malli-model.tiny (:require [malli-model.trace :refer [trace-ns]]))
+(ns malli-model.tiny
+  (:refer-clojure :exclude [compile])
+  (:require [malli-model.trace :refer [trace-ns]]))
 (defn lookup [k R] (or (get R k) (throw (ex-info (str "not in scope: " k) {}))))
-(defn check [s f] (f))
-(defn validator [s {:keys [R] :as o}]
-  (if (contains? R s) (validator (lookup s R) o)
+(defn run [s f] (f))
+(defn compile [s {:keys [R] :as o}]
+  (if (contains? R s) (compile (lookup s R) o)
       (case (first s)
-        := (let [[_ x] s] #(check s (fn [] (= x %))))
-        :seqable (let [[_ c] s, f (validator c o)] #(check s (fn [] (and (seqable? %) (every? f %)))))
+        := (let [[_ x] s] #(run s (fn [] (= x %))))
+        :seqable (let [[_ c] s, f (compile c o)] #(run s (fn [] (and (seqable? %) (every? f %)))))
         (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
-(defn validate [s o v] ((validator s o) v))
+(defn validate [s o v] ((compile s o) v))
 (trace-ns)
