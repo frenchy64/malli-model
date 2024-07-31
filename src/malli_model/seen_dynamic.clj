@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [compile])
   (:require [malli-model.trace :refer [trace-ns]]))
 ;; R ::= {K S}           ;; registry
-;; seen ::= {K fn?}      ;; validator for refs being currently compiled
+;; seen ::= {[K R] fn?}  ;; validator for refs being currently compiled
 ;; S ::= [:= v]          ;; singleton schema
 ;;    |  [:seqable S]    ;; seqable schema
 ;;    |  [:binding R S]  ;; dynamic binding schema
