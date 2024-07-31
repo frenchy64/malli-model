@@ -5,4 +5,5 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.2"]
                  [org.clojure/tools.trace "0.8.0"]]
+  :jvm-opts ["-Xss256k"]
   :repl-options {:init-ns malli-model.core})
