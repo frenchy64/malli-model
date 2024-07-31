@@ -15,7 +15,8 @@
         :seqable (let [[_ c] s
                        f (compile' c o)]
                    (fn [x k]
-                     (run s
+                     (fn []
+                       (run s
                           (fn []
                             (if (seqable? x)
                               (letfn [(check [x k]
@@ -29,7 +30,7 @@
                                                      (run s #(check (rest x) k))
                                                      false)))))))]
                                 (check (seq x) k))
-                              (k false))))))
+                              (k false)))))))
         :ref (let [[_ c] s, f (delay (compile' c o))] (fn [x k] (run s (fn [] (@f x k)))))
         (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
 (defn ^:no-trace compile [s o] (let [f (compile' s o)] (fn [x] (trampoline f x identity))))
