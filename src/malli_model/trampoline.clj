@@ -17,20 +17,21 @@
       :seqable (let [[_ c] s
                      f (compile' c o)]
                  (fn [x k]
-                   (if (seqable? x)
-                     (letfn [(check [x k]
-                               (run s
-                                    #(if (empty? x)
-                                       (k true)
-                                       (fn []
-                                         (f (first x)
-                                            (fn [res]
-                                              (fn []
-                                                (if res
-                                                  (check (rest x) k)
-                                                  false))))))))]
-                       (check (seq x) k))
-                     (k false))))
+                   (run s
+                        (fn []
+                          (if (seqable? x)
+                            (letfn [(check [x k]
+                                      (if (empty? x)
+                                        (k true)
+                                        (fn []
+                                          (f (first x)
+                                             (fn [res]
+                                               (fn []
+                                                 (if res
+                                                   (run s #(check (rest x) k))
+                                                   false)))))))]
+                              (check (seq x) k))
+                            (k false))))))
       (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
 (defn ^:no-trace compile [s o] (let [f (compile' s o)] (fn [x] (trampoline f x identity))))
 (defn validate [s o v] ((compile s o) v))
