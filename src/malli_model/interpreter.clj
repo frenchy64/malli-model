@@ -1,4 +1,4 @@
-(ns malli-model.runtime
+(ns malli-model.interpreter
   (:require [malli-model.trace :refer [trace-ns]]))
 ;; R ::= {K S}           ;; registry
 ;; S ::= [:= v]          ;; singleton schema

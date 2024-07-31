@@ -1,6 +1,6 @@
-(ns malli-model.runtime-test
+(ns malli-model.interpreter-test
   (:require [clojure.test :refer :all]
-            [malli-model.runtime :as m]))
+            [malli-model.interpreter :as m]))
 
 (deftest validator-test
   (is (m/validate [:= 1] {} 1))
