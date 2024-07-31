@@ -26,8 +26,7 @@
                                                      false)))))))]
                                 (check (seq x) k))
                               (k false))))))
-        :ref (let [[_ c] s, f (delay (compile' c o))]
-               (fn [x k] (run s (fn [] (@f x k)))))
+        :ref (let [[_ c] s, f (delay (compile' c o))] (fn [x k] (run s (fn [] (@f x k)))))
         (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
 (defn ^:no-trace compile [s o] (let [f (compile' s o)] (fn [x] (trampoline f x identity))))
 (defn validate [s o v] ((compile s o) v))
