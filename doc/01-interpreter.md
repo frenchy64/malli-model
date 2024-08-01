@@ -15,7 +15,7 @@ Imagine opposing fingers simultaneously tracing both the specification and the v
 ```
 
 At each position, you must interpret the specification on your left
-and then check that the value on your right against it.
+and then check the value on your right against it.
 
 For example, if the specification is `[:= 1]`, you must recognize that:
 1. this is a singleton schema because it starts with `:=`,
