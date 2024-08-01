@@ -31,10 +31,9 @@
                                         (fn []
                                           (f (first x)
                                              (fn [res]
-                                               (fn []
-                                                 (if res
-                                                   (run s #(check (rest x) k))
-                                                   (k false))))))))]
+                                               (if res
+                                                 (fn [] (run s #(check (rest x) k)))
+                                                 (k false)))))))]
                               (check (seq x) k))
                             (k false))))))
       (throw (ex-info (str "invalid schema " (pr-str s)) {})))))

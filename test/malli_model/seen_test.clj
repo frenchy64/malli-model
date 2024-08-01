@@ -13,6 +13,6 @@
   (is (false? (m/validate :bar {:R {:bar [:= 1]}} false)))
   (is (true? (m/validate :bar {:R {:bar [:seqable :bar]}} nil)))
   (is (true? (m/validate :bar {:R {:bar [:seqable :bar]}} [[[[[[nil]]]]]])))
-  (is (false? (m/validate :bar {:R {:bar [:seqable :bar]}} [[[[[[1]]]]]] )))
+  (is (false? (m/validate :bar {:R {:bar [:seqable :bar]}} [[[[[[1]]]]]])))
   (is (fn? (m/compile :nest {:R {:nest [:seqable :nest]}})))
   )

@@ -72,7 +72,7 @@
   "This function is called by trace. Prints to standard output, but
 may be rebound to do anything you like. 'name' is optional."
   [name value]
-  (println (str "TRACE" (when name (str " " name)) ": " value)))
+  (println (str name #_"TRACE" #_(when name (str " " name)) " " value)))
 
 (defn trace
   "Sends name (optional) and value to the tracer function, then
@@ -92,7 +92,9 @@ affecting the result."
   "Traces a single call to a function f with args. 'name' is the
 symbol name of the function."
   [name f args]
-  (let [id (gensym "t")]
+  (let [id (if (> 10 *trace-depth*)
+             (str " " *trace-depth*)
+             (str *trace-depth*))]
     (tracer id (str (trace-indent) (pr-str (cons (-> name clojure.core/name symbol) (take 1 args)))))
     (let [value (binding [*trace-depth* (inc *trace-depth*)]
                   (apply f args))]
