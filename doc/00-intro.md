@@ -1,3 +1,5 @@
+[-> Interpreter](01-interpreter.md)
+
 # Validators
 
 We're going to study different ways of creating predicates ("validators")
@@ -32,3 +34,4 @@ Schemas will be the plural of schema instead of schemata.
     1. [Sub paragraph](#subparagraph1)
 3. [Another paragraph](#paragraph2)
 
+[-> Interpreter](01-interpreter.md)

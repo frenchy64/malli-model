@@ -1,3 +1,5 @@
+[<- Introduction](00-intro.md)
+
 # Interpreter
 
 The most direct way to check a value against a specification is to implement an _interpreter_.
