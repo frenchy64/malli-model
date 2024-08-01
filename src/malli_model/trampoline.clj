@@ -34,7 +34,7 @@
                                                (fn []
                                                  (if res
                                                    (run s #(check (rest x) k))
-                                                   false)))))))]
+                                                   (k false))))))))]
                               (check (seq x) k))
                             (k false))))))
       (throw (ex-info (str "invalid schema " (pr-str s)) {})))))
