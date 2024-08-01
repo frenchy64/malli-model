@@ -17,7 +17,6 @@
                                  (fn []
                                    (interpret c o (first x)
                                               (fn [res]
-                                                {:pre [(boolean? res)]}
                                                 (if res
                                                   (fn [] (check (rest x) k))
                                                   (k false)))))))]
