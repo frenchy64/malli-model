@@ -1,16 +1,16 @@
 (ns malli-model.interpreter-test
   (:require [clojure.test :refer :all]
-            [malli-model.interpreter :as m]))
+            [malli-model.interpreter :refer [valid?]]))
 
-(deftest validator-test
-  (is (true? (m/valid? [:= 1] {} 1)))
-  (is (false? (m/valid? [:= 1] {} false)))
-  (is (false? (m/valid? [:seqable [:= 1]] {} 1)))
-  (is (true? (m/valid? [:seqable [:= 1]] {} [1])))
-  (is (false? (m/valid? [:seqable [:= 1]] {} 1)))
-  (is (false? (m/valid? :bar {:R {:bar [:= 1]}} false)))
-  (is (false? (m/valid? :bar {:R {:bar [:= 1]}} false)))
-  (is (true? (m/valid? :bar {:R {:bar [:seqable :bar]}} nil)))
-  (is (true? (m/valid? :bar {:R {:bar [:seqable :bar]}} [[nil]])))
-  (is (true? (m/valid? :bar {:R {:bar [:seqable :bar]}} [[[] [] [] []]])))
-  (is (true? (m/valid? :bar {:R {:bar [:seqable :bar]}} [[[[[[nil]]]]]]))))
+(deftest valid?-test
+  (is (true?  (valid? [:= 1] {} 1)))
+  (is (false? (valid? [:= 1] {} 2)))
+  (is (false? (valid? [:seqable [:= 1]] {} 1)))
+  (is (true?  (valid? [:seqable [:= 1]] {} [1])))
+  (is (false? (valid? [:seqable [:= 1]] {} 1)))
+  (is (false? (valid? :bar {:R {:bar [:= 1]}} false)))
+  (is (false? (valid? :bar {:R {:bar [:= 1]}} false)))
+  (is (true?  (valid? :bar {:R {:bar [:seqable :bar]}} nil)))
+  (is (true?  (valid? :bar {:R {:bar [:seqable :bar]}} [[nil]])))
+  (is (true?  (valid? :bar {:R {:bar [:seqable :bar]}} [[[] [] [] []]])))
+  (is (true?  (valid? :bar {:R {:bar [:seqable :bar]}} [[[[[[nil]]]]]]))))

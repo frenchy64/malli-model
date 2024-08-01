@@ -5,24 +5,27 @@ from specifications that resemble Malli syntax.
 
 Today, we're going to start with three schemas and one public function.
 
-
 ```
 S ::= [:= v]          -- singleton schema
    |  [:seqable S]    -- seqable schema
    |  K               -- reference schema
 R ::= {K S}           -- registry
+
+(valid? S {:keys [R] :as opts} x) : Bool
 ```
 
 `valid?` is a function that takes:
-- a schema `S`
+- a schema `S`,
 - an options map containing a _registry_ `R` of keywords to schemas
+  that we can _reference_ by name, and
+- a value `x` to validate against the schema.
 
-```
-(valid? S {:keys [R] :as opts} V) : Bool
-```
-
-We going to use a convention throughout where `S` is always the first
+Note: We going to use a convention throughout where the schema `S` is always the first
 argument. This will help us study program execution traces.
+
+Note: The words specification and schema will be mostly synonymous, but I like to think
+that we're divising a language of schemas to create specifications.
+Schemas will be the plural of schema instead of schemata.
 
 ## Interpreter
 
@@ -53,8 +56,7 @@ This has a high cognitive load, and computers don't fare much better.
 > Exercise 1
 
 Here's the implementation---but don't stress the details.
-Can you find where singleton schemas are handled and
-the three steps of interpretation are performed?
+Can you find the three steps of interpretation for the specification `[:= 1]`?
 
 ```clojure
 (defn lookup [k R] (or (get R k) (throw (ex-info (str "not in scope: " k) {}))))
@@ -74,6 +76,26 @@ The line is here:
       := (let [[_ y] s] (= x y))
 ```
 
-The `case` clause `:=` identifies that this is a singleton schema, the
-`let` destructuring will find `y=1`, and `(= x y)` is the algorithm
-to validate the value `x`.
+The `case` clause `:=` identifies the singleton schema, `y`
+will be `1`, and `(= x y)` is the algorithm to validate the value `x`.
+
+We don't need to stress over the implementation in isolation because
+we can _use_ the interpreter and observe its execution.
+
+```clojure
+(valid? [:= 1] {} 1)
+; 0 (valid? [:= 1])
+; 1 | (interpret [:= 1])
+; 1 | => true
+; 0 => true
+
+(valid? [:= 1] {} 2)
+; 0 (valid? [:= 1])
+; 1 | (interpret [:= 1])
+; 1 | => false
+; 0 => false
+```
+
+
+
+## Interpreter
