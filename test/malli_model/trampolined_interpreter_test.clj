@@ -8,6 +8,7 @@
   (is (not (m/validate [:seqable [:= 1]] {} 1)))
   (is (m/validate [:seqable [:= 1]] {} [1]))
   (is (not (m/validate [:seqable [:= 1]] {} 1)))
+  (is (not (m/validate [:seqable :one] {:R {:one [:= 1]}} [1 1 1 1 1])))
   (is (m/validate :bar {:R {:bar [:= 1]}} 1))
   (is (not (m/validate :bar {:R {:bar [:= 1]}} false)))
   (is (not (m/validate :bar {:R {:bar [:= 1]}} false)))

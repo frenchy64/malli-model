@@ -7,7 +7,7 @@
 (defn lookup [k R] (or (get R k) (throw (ex-info (str "not in scope: " k) {}))))
 (defn interpret [s {:keys [R] :as o} x k]
   (if (contains? R s) (interpret (lookup s R) o x k)
-      (case (first s)
+      (case (if (vector? s) (first s))
         := (let [[_ y] s] (k (= x y)))
         :seqable (let [[_ c] s]
                    (if (seqable? x)
