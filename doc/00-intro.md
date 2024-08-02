@@ -30,8 +30,14 @@ that we're divising a language of schemas to create specifications.
 Schemas will be the plural of schema instead of schemata.
 
 1. [Interpreter](01-interpreter.md)
-2. [Some paragraph](#paragraph1)
-    1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
+2. [Compiler](02-compiler.md)
+3. [Compiler with explicit refs](03-compiler-refs.md)
+4. [Compiler with implicit refs](04-compiler-seen.md)
+5. [Trampolined interpreter](05-trampolined-interpreter.md)
+6. [Trampolining compiler](06-trampolining-compiler.md)
+7. [Dynamic scope](07-dynamic-scope.md)
+8. [Dynamic scope with explicit refs](08-dynamic-scope-refs.md)
+9. [Dynamic scope with implicit refs](09-dynamic-scope-seen.md)
+10. [Lexical & Dynamic scope with implicit refs](10-lexical-and-dynamic-scope-seen.md)
 
 [-> Interpreter](01-interpreter.md)
