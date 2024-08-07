@@ -20,7 +20,7 @@
   (is (true?  (valid? :onion
                       {:R {:onion :layer
                            :layer [:seqable :layer]}}
-                      [[[[[[nil]]]]]])))
+                      [[[[[[[]]]]]]])))
   (is (true?  (valid? :red-onion
                       {:R {:red-onion :red-layer
                            :red-layer [:seqable :white-layer]
