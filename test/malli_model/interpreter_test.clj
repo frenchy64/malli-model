@@ -17,10 +17,7 @@
                       nil)))
   (is (true?  (valid? :onion {:R {:onion [:seqable :onion]}} [[[nil]]])))
   (is (true?  (valid? :onion {:R {:onion [:seqable :onion]}} [[[] [] [] []]])))
-  (is (true?  (valid? :onion
-                      {:R {:onion :layer
-                           :layer [:seqable :layer]}}
-                      [[[[[[[]]]]]]])))
+  (is (true?  (valid? :onion {:R {:onion [:seqable :onion]}} [[[[[[[]]]]]]])))
   (is (true?  (valid? :red-onion
                       {:R {:red-onion :red-layer
                            :red-layer [:seqable :white-layer]

@@ -74,58 +74,51 @@ Make sure you're in the `malli-model.interpreter` namespace.
 Recursive values are checked by interpreting the schemas at runtime.
 
 ```clojure
-(valid? :onion
-        {:R {:onion :layer
-             :layer [:seqable :layer]}}
-        [[[[[[[]]]]]]])
-; 0 (valid? :onion)
-; 1 | (interpret :onion)
-; 2 | | (lookup :onion)
-; 2 | | => :layer
-; 2 | | (interpret :layer)
-; 3 | | | (lookup :layer)
-; 3 | | | => [:seqable :layer]
-; 3 | | | (interpret [:seqable :layer])
-; 4 | | | | (interpret :layer)
-; 5 | | | | | (lookup :layer)
-; 5 | | | | | => [:seqable :layer]
-; 5 | | | | | (interpret [:seqable :layer])
-; 6 | | | | | | (interpret :layer)
-; 7 | | | | | | | (lookup :layer)
-; 7 | | | | | | | => [:seqable :layer]
-; 7 | | | | | | | (interpret [:seqable :layer])
-; 8 | | | | | | | | (interpret :layer)
-; 9 | | | | | | | | | (lookup :layer)
-; 9 | | | | | | | | | => [:seqable :layer]
-; 9 | | | | | | | | | (interpret [:seqable :layer])
-;10 | | | | | | | | | | (interpret :layer)
-;11 | | | | | | | | | | | (lookup :layer)
-;11 | | | | | | | | | | | => [:seqable :layer]
-;11 | | | | | | | | | | | (interpret [:seqable :layer])
-;12 | | | | | | | | | | | | (interpret :layer)
-;13 | | | | | | | | | | | | | (lookup :layer)
-;13 | | | | | | | | | | | | | => [:seqable :layer]
-;13 | | | | | | | | | | | | | (interpret [:seqable :layer])
-;14 | | | | | | | | | | | | | | (interpret :layer)
-;15 | | | | | | | | | | | | | | | (lookup :layer)
-;15 | | | | | | | | | | | | | | | => [:seqable :layer]
-;15 | | | | | | | | | | | | | | | (interpret [:seqable :layer])
-;15 | | | | | | | | | | | | | | | => true
-;14 | | | | | | | | | | | | | | => true
-;13 | | | | | | | | | | | | | => true
-;12 | | | | | | | | | | | | => true
-;11 | | | | | | | | | | | => true
-;10 | | | | | | | | | | => true
-; 9 | | | | | | | | | => true
-; 8 | | | | | | | | => true
-; 7 | | | | | | | => true
-; 6 | | | | | | => true
-; 5 | | | | | => true
-; 4 | | | | => true
-; 3 | | | => true
-; 2 | | => true
-; 1 | => true
-; 0 => true
+(valid? :onion {:R {:onion [:seqable :onion]}} [[[[[[[]]]]]]])
+;= 0 (valid? :onion)
+;= 1 | (interpret :onion)
+;= 2 | | (lookup :onion)
+;= 2 | | => [:seqable :onion]
+;= 2 | | (interpret [:seqable :onion])
+;= 3 | | | (interpret :onion)
+;= 4 | | | | (lookup :onion)
+;= 4 | | | | => [:seqable :onion]
+;= 4 | | | | (interpret [:seqable :onion])
+;= 5 | | | | | (interpret :onion)
+;= 6 | | | | | | (lookup :onion)
+;= 6 | | | | | | => [:seqable :onion]
+;= 6 | | | | | | (interpret [:seqable :onion])
+;= 7 | | | | | | | (interpret :onion)
+;= 8 | | | | | | | | (lookup :onion)
+;= 8 | | | | | | | | => [:seqable :onion]
+;= 8 | | | | | | | | (interpret [:seqable :onion])
+;= 9 | | | | | | | | | (interpret :onion)
+;=10 | | | | | | | | | | (lookup :onion)
+;=10 | | | | | | | | | | => [:seqable :onion]
+;=10 | | | | | | | | | | (interpret [:seqable :onion])
+;=11 | | | | | | | | | | | (interpret :onion)
+;=12 | | | | | | | | | | | | (lookup :onion)
+;=12 | | | | | | | | | | | | => [:seqable :onion]
+;=12 | | | | | | | | | | | | (interpret [:seqable :onion])
+;=13 | | | | | | | | | | | | | (interpret :onion)
+;=14 | | | | | | | | | | | | | | (lookup :onion)
+;=14 | | | | | | | | | | | | | | => [:seqable :onion]
+;=14 | | | | | | | | | | | | | | (interpret [:seqable :onion])
+;=14 | | | | | | | | | | | | | | => true
+;=13 | | | | | | | | | | | | | => true
+;=12 | | | | | | | | | | | | => true
+;=11 | | | | | | | | | | | => true
+;=10 | | | | | | | | | | => true
+;= 9 | | | | | | | | | => true
+;= 8 | | | | | | | | => true
+;= 7 | | | | | | | => true
+;= 6 | | | | | | => true
+;= 5 | | | | | => true
+;= 4 | | | | => true
+;= 3 | | | => true
+;= 2 | | => true
+;= 1 | => true
+;= 0 => true
 true
 ```
 
