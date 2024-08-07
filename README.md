@@ -1,14 +1,14 @@
 # malli-model
 
-A Clojure library designed to ... well, that part is up to you.
+Small models to study compilation and interpretation techniques of malli schemas.
 
 ## Usage
 
-FIXME
+[Walkthrough](doc/00-intro.md)
 
 ## License
 
-Copyright © 2024 FIXME
+Copyright © 2024 Ambrose Bonnaire-Sergeant
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
