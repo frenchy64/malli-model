@@ -2,9 +2,54 @@
 
 Small models to study compilation and interpretation techniques of malli schemas.
 
+[Walkthrough](doc/00-intro.md)
+
 ## Usage
 
-[Walkthrough](doc/00-intro.md)
+```clojure
+$ lein repl
+malli-model.interpreter=> (valid? [:= 1] {} 1)
+ 0 (valid? [:= 1])
+ 1 | (interpret [:= 1])
+ 1 | => true
+ 0 => true
+true
+malli-model.interpreter=> (valid? [:= 1] {} 2)
+ 0 (valid? [:= 1])
+ 1 | (interpret [:= 1])
+ 1 | => false
+ 0 => false
+false
+malli-model.interpreter=> (valid? :onion {:R {:onion [:seqable :onion]}} [[[nil]]])
+ 0 (valid? :onion)
+ 1 | (interpret :onion)
+ 2 | | (lookup :onion)
+ 2 | | => [:seqable :onion]
+ 2 | | (interpret [:seqable :onion])
+ 3 | | | (interpret :onion)
+ 4 | | | | (lookup :onion)
+ 4 | | | | => [:seqable :onion]
+ 4 | | | | (interpret [:seqable :onion])
+ 5 | | | | | (interpret :onion)
+ 6 | | | | | | (lookup :onion)
+ 6 | | | | | | => [:seqable :onion]
+ 6 | | | | | | (interpret [:seqable :onion])
+ 7 | | | | | | | (interpret :onion)
+ 8 | | | | | | | | (lookup :onion)
+ 8 | | | | | | | | => [:seqable :onion]
+ 8 | | | | | | | | (interpret [:seqable :onion])
+ 8 | | | | | | | | => true
+ 7 | | | | | | | => true
+ 6 | | | | | | => true
+ 5 | | | | | => true
+ 4 | | | | => true
+ 3 | | | => true
+ 2 | | => true
+ 1 | => true
+ 0 => true
+true
+```
+
 
 ## License
 
