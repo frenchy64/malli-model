@@ -129,6 +129,8 @@ Recursive values are checked by interpreting the schemas at runtime.
 true
 ```
 
-## Compiler
+Notice that this implementation spends extra computation time interpretting schemas.
+This will be addressed by the next section.
 
-
+[<- Introduction](00-intro.md)
+[Compiler ->](02-compiler.md)
